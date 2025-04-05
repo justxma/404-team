@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Shop</title>
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gold: #e0e40d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: #0a0a0a;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: url('pexels-francesco-ungaro-1670977.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            position: relative;
+            text-shadow: #0a0a0a;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.236);
+            z-index: -1;
+        }
+        
+        /* Left Navigation */
+        nav {
+            width: 250px;
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 0;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-container {
+            padding: 0 30px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo-container img {
+            height: 60px;
+            transition: transform 0.3s;
+        }
+        
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-section {
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+        
+        ul {
+            list-style-type: none;
+        }
+        
+        ul li {
+            margin-bottom: 5px;
+        }
+        
+        a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gold);
+        }
+        
+        a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        a:hover::before {
+            opacity: 1;
+        }
+        
+        /* Main Content with Carousel */
+        main {
+            flex: 1;
+            margin-left: 250px;
+            padding: 40px;
+        }
+        
+        /* Luxury Carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 500px;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 40px;
+            color: white;
+        }
+        
+        .slide-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            color: var(--gold);
+        }
+        
+        .slide-content p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .shop-now {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .shop-now:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--gold);
+        }
+        
+        #prevBtn {
+            left: 20px;
+        }
+        
+        #nextBtn {
+            right: 20px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .indicator.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+        
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 250px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 15px 40px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .carousel {
+                height: 400px;
+            }
+            
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                width: 200px;
+                padding: 20px 0;
+            }
+            
+            .logo-container {
+                padding: 0 20px 20px;
+            }
+            
+            .nav-section {
+                padding: 0 15px;
+            }
+            
+            main {
+                margin-left: 200px;
+                padding: 30px;
+            }
+            
+            .carousel {
+                height: 350px;
+            }
+            
+            .slide-content {
+                padding: 30px;
+            }
+            
+            footer {
+                left: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav {
+                width: 70px;
+                padding: 15px 0;
+                overflow: hidden;
+            }
+            
+            .logo-container {
+                padding: 0 10px 15px;
+                text-align: center;
+            }
+            
+            .logo-container img {
+                height: 40px;
+            }
+            
+            .nav-title, a span {
+                display: none;
+            }
+            
+            a {
+                text-align: center;
+                padding: 15px 5px;
+            }
+            
+            main {
+                margin-left: 70px;
+                padding: 20px;
+            }
+            
+            .carousel {
+                height: 250px;
+            }
+            
+            .slide-content {
+                padding: 20px;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            footer {
+                left: 70px;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="CultureDrop-removebg-preview.png" alt="Luxury Shop Logo">
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Menu</div>
+            <ul>
+                <li><a href=""><span>Home</span></a></li>
+                <li><a href=""><span>T-Shirts</span></a></li>
+                <li><a href=""><span>Sweatshirts</span></a></li>
+                <li><a href=""><span>Hoodies</span></a></li>
+                <li><a href=""><span>Accessories</span></a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Account</div>
+            <ul>
+                <li><a href=""><span>Cart</span></a></li>
+                <li><a href="cont.html"><span>My Account</span></a></li>
+                <li><a href=""><span>Wishlist</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-slide">
+                    <img src="https://live.staticflickr.com/4202/34874440801_6ca79c0c53_b.jpg" alt="Luxury Fashion">
+                    <div class="slide-content">
+                        <h2>New Collection 2025</h2>
+                        <p>Discover our exclusive luxury fashion line with premium materials and unique designs.</p>
+                        <a href="#" class="shop-now">Shop Now</a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="http://bit.ly/44cbJ6h" alt="Summer Sale">
+                    <div class="slide-content">
+                        <h2>Summer Sale</h2>
+                        <p>Up to 50% off on selected items. Limited time offer for our premium customers.</p>
+                        <a href="#" class="shop-now">Shop Now</a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.pexels.com/photos/7564226/pexels-photo-7564226.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Limited Edition">
+                    <div class="slide-content">
+                        <h2>Limited Edition</h2>
+                        <p>Exclusive pieces designed by world-renowned fashion designers.</p>
+                        <a href="#" class="shop-now">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-btn" id="prevBtn">&#10094;</button>
+            <button class="carousel-btn" id="nextBtn">&#10095;</button>
+            
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 CultureDrop. All rights reserved.
+    </footer>
+
+    <script>
+        // Carousel functionality
+        const carousel = document.querySelector('.carousel');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        let currentIndex = 0;
+        const slideCount = slides.length;
+        
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        }
+        
+        // Button click events
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Indicator click events
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+        
+        // Auto-rotate carousel
+        let interval = setInterval(nextSlide, 5000);
+        
+        // Pause on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(interval);
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            interval = setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+</html>
