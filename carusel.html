@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .carusel {
+      width: 600px;
+      margin: auto;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      height:400px;
+    
+    }
+
+    .carusel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      display: block;
+      width: 600px;
+      height:400px;
+    }
+
+    .btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="carusel">
+        <div class="carusel-track">
+          <div class="slide"><img src="Resurse/rock(bg).png"></div>
+          <div class="slide"><img src="Resurse/rock(car).png"></div>
+          <div class="slide"><img src="Resurse/logo.png"></div>
+        </div>
+        <button class="btn prev">&#10094;</button>
+        <button class="btn next">&#10095;</button>
+      </div>
+      
+      <script>
+        const track = document.querySelector('.carusel-track');
+        const slides = Array.from(track.children);
+        const nextBtn = document.querySelector('.next');
+        const prevBtn = document.querySelector('.prev');
+        let currentIndex = 0;
+      
+        const backgrounds = [
+  'url("Resurse/rock(bg).png")',
+  'url("Resurse/rock(car).png")',
+  'url("Resurse/logo.png")'
+     ];
+
+        function updateSlide(index) {
+          const slideWidth = slides[0].getBoundingClientRect().width;
+          track.style.transform = `translateX(-${index * slideWidth}px)`;
+          document.body.style.backgroundImage = backgrounds[index];
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.transition = 'background-image 0.5s ease-in-out';
+        }
+      
+        nextBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % slides.length;
+          updateSlide(currentIndex);
+        });
+      
+        prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+          updateSlide(currentIndex);
+        });
+</script>       
+</body>
+</html>
