@@ -3,9 +3,951 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Culture Drop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="logoWhite.png" type="icon/x-image">
+    <style>
+    :root{
+        --primary: #cb2111;
+        --secondary: #fc2525;
+        --dark: #1a1a2e;
+        --light: #f8f9fa;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+        display: flex;
+        min-height: 100vh;
+        background: #f5f5f5;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('mahdi-soheili-1UfPaDcmUAI-unsplash.jpg');
+    }
+
+    /* Left Navigation */
+    nav {
+        width: 250px;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        padding: 30px 0;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo-container {
+        padding: 0 15px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo-container img {
+        height: 75px;
+        transition: transform 0.3s;
+    }
+
+    .logo-text {
+        font-family: 'Montserrat', sans-serif;
+        color: white;
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .logo-container img:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-section {
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+
+    .nav-title {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        padding: 0 10px;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    ul li {
+        margin-bottom: 5px;
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: 500;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+    a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    a:hover::before {
+        opacity: 1;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 2rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .product-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+        color: white;
+        margin: 0.5rem 0;
+    }
+
+    .product-card .price {
+        color: var(--secondary);
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+
+    section {
+        padding: 4rem 0;
+        scroll-margin-top: 2rem;
+    }
+
+    section h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+
+    /* Add smooth scrolling to the whole page */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Responsive adjustments for the product grid */
+    @media (max-width: 1024px) {
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+    /* Main Content with Carousel */
+    main {
+        flex: 1;
+        margin-left: 250px;
+        padding: 40px;
+        transform: scale(0.75);
+        transform-origin: top left;
+    }
+
+    /* Luxury Carousel */
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        margin: 4rem auto 0;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        height: 500px;
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        position: relative;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .slide-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(26, 26, 46, 0.9), transparent);
+        padding: 40px;
+        color: white;
+    }
+
+    .slide-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .slide-content p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: none;
+        color: white;
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        z-index: 10;
+    }
+
+    .carousel-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    #prevBtn {
+        left: 20px;
+    }
+
+    #nextBtn {
+        right: 20px;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .indicator.active {
+        background: white;
+        transform: scale(1.2);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .carousel {
+            height: 400px;
+        }
+        
+        .slide-content h2 {
+            font-size: 2rem;
+        }
+        
+        .slide-content p {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            width: 200px;
+            padding: 20px 0;
+        }
+        
+        .logo-container {
+            padding: 0 20px 20px;
+        }
+        
+        .nav-section {
+            padding: 0 15px;
+        }
+        
+        main {
+            margin-left: 200px;
+            padding: 30px;
+        }
+        
+        .carousel {
+            height: 350px;
+        }
+        
+        .slide-content {
+            padding: 30px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        nav {
+            width: 70px;
+            padding: 15px 0;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            padding: 0 10px 15px;
+            text-align: center;
+        }
+        
+        .logo-container img {
+            height: 90px;
+        }
+        
+        .nav-title, a span {
+            display: none;
+        }
+        
+        a {
+            text-align: center;
+            padding: 15px 5px;
+        }
+        
+        main {
+            margin-left: 70px;
+            padding: 20px;
+        }
+        
+        .carousel {
+            height: 250px;
+        }
+        
+        .slide-content {
+            padding: 20px;
+        }
+        
+        .slide-content h2 {
+            font-size: 1.5rem;
+        }
+        
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+        }
+    }
+    footer {
+    margin-top: auto;
+    background: var(--dark-bg);
+    padding: 1.5rem;
+    }
+
+    /* Add these new styles */
+    .product-frame {
+        display: none;
+        width: 100%;
+        height: calc(100vh - 100px);
+        margin-top: 30px;
+        border: none;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .product-frame.active {
+        display: block;
+    }
+
+    /* Hide all sections initially */
+    #tshirts, #jackets, #jeans, #accessories {
+        display: none;
+    }
+
+    /* Style for the new title above the carousel */
+    .section-title {
+        color: white;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--secondary);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Video Section Styles */
+    .video-section {
+        display: flex;
+        align-items: center;
+        gap: 3rem; /* Space between text and video */
+        max-width: 1400px; /* Match carousel max-width */
+        margin: 4rem auto; /* Spacing above and below */
+        padding: 0 2rem; /* Padding on the sides */
+        color: white;
+    }
+
+    .video-text {
+        flex: 1; /* Take up available space */
+        max-width: 40%; /* Limit text width */
+    }
+
+    .video-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--secondary); /* Use secondary color for heading */
+        text-transform: uppercase;
+    }
+
+    .video-text p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.8); /* Slightly faded white */
+    }
+
+    .cta-button {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 0.8rem 1.8rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+        background: var(--secondary);
+    }
+
+    .video-container {
+        flex: 1; /* Take up available space */
+        max-width: 60%; /* Limit video width */
+        border-radius: 15px;
+        overflow: hidden; /* Ensures video stays within rounded corners */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-container video {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Remove extra space below video */
+    }
+
+    /* Responsive adjustments for video section */
+    @media (max-width: 992px) {
+        .video-section {
+            flex-direction: column; /* Stack text and video vertically */
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .video-text {
+            max-width: 100%; /* Allow text to take full width */
+        }
+
+        .video-container {
+            max-width: 80%; /* Adjust video width */
+            margin: 0 auto; /* Center video */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .video-text h3 {
+            font-size: 1.8rem;
+        }
+        .video-text p {
+            font-size: 1rem;
+        }
+        .video-container {
+            max-width: 100%; /* Full width video on small screens */
+        }
+    }
+
+    /* Adjust iframe margin */
+     .product-frame {
+        /* ... existing product-frame styles ... */
+        margin-top: 0; /* Remove top margin if video section is present */
+    }
+
+    /* Ensure sections have scroll margin */
+    section[id] {
+        padding: 4rem 0; /* Add padding to sections */
+        scroll-margin-top: 2rem; /* Offset for potential fixed headers or just spacing */
+    }
+
+    /* Styles for the integrated product sections (adapt from tshirts.html) */
+    .product-section { /* Common class for all product sections */
+        max-width: 1400px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+        color: white;
+    }
+
+    .product-section .page-title { /* Reuse page-title style */
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 2px solid var(--secondary);
+        padding-bottom: 1rem;
+    }
+
+    .product-section .products-container {
+        padding: 1rem 0; 
+        overflow-x: auto; 
+        overflow-y: hidden; 
+        white-space: nowrap; 
+        position: relative;
+        margin-top: 2rem; 
+        background: transparent; /* Explicitly removed background */
+    }
+
+     /* Custom Scrollbar Styling for product sections */
+    .product-section .products-container::-webkit-scrollbar { 
+        height: 5px; /* Reduced height from 10px to 5px */
+    }
+    .product-section .products-container::-webkit-scrollbar-track { 
+        background: rgba(255, 255, 255, 0.1); 
+        border-radius: 3px; /* Adjusted radius slightly */
+    }
+    .product-section .products-container::-webkit-scrollbar-thumb { 
+        background: var(--secondary); 
+        border-radius: 3px; /* Adjusted radius slightly */
+    }
+    .product-section .products-container::-webkit-scrollbar-thumb:hover { 
+        background: var(--primary); 
+    }
+
+    .product-section .products-grid {
+        display: inline-flex; 
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .product-section .product-holder {
+        background: white;
+        color: #333;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #eee;
+        min-height: 360px;
+        width: 260px;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        white-space: normal;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .product-section .product-holder:hover {
+        transform: translateY(-6px);
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.25), 0 6px 20px rgba(0, 0, 0, 0.08);
+        border-color: transparent;
+    }
+
+    .product-section .product-image {
+        width: 100%;
+        height: 190px;
+        border-radius: 8px;
+        margin-bottom: 1.2rem;
+        overflow: hidden;
+        background-color: #1a1a1a;
+    }
+
+    .product-section .product-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-section .product-title {
+        font-size: 1.15rem;
+        margin: 0.8rem 0;
+        color: #222;
+        font-weight: 600;
+    }
+
+    .product-section .product-price {
+        color: var(--primary);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+
+    .product-section .product-button {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        margin-top: auto;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    }
+
+    .product-section .product-button:hover {
+        background: var(--primary);
+        transform: scale(1.03);
+    }
+
+    .product-section .scroll-buttons { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .product-section .scroll-btn { background: #cb2111; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; cursor: pointer; transition: background 0.3s ease; }
+    .product-section .scroll-btn:hover { background: #fc2525; }
+
+    /* Style for active nav link */
+    nav ul li a.active {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    nav ul li a.active::before {
+        opacity: 1;
+    }
+
+    /* Remove iframe specific styles */
+    .product-frame, .product-frame.active {
+         display: none;
+    }
+    </style>
 </head>
 <body>
-    hello
+    <nav>
+        <div class="logo-container">
+            <a href="#home">
+                <img src="logoWhite.png" alt="Culture Drop Logo">
+            </a>
+            <span class="logo-text">Culture Drop</span>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Menu</div>
+            <ul>
+                <li><a href="#top" class="nav-link active"><span>Home</span></a></li>
+                <li><a href="#tshirts-section" class="nav-link"><span>T-Shirts</span></a></li>
+                <li><a href="#hoodies-section" class="nav-link"><span>Hoodies</span></a></li>
+                <li><a href="#jeans-section" class="nav-link"><span>Jeans</span></a></li>
+                <li><a href="#shoes-section" class="nav-link"><span>Shoes</span></a></li>
+                <li><a href="#accessories-section" class="nav-link"><span>Accessories</span></a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Account</div>
+            <ul>
+                <li><a href="cont.html"><span>My Account</span></a></li>
+                <li><a href="#"><span>Cart</span></a></li>
+                <li><a href="#"><span>Wishlist</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <h2 class="section-title" id="top">The are we stile</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-slide">
+                    <img src="https://live.staticflickr.com/4202/34874440801_6ca79c0c53_b.jpg" alt="Luxury Fashion">
+                    <div class="slide-content">
+                        <h2>New Collection 2025</h2>
+                        <p>Discover our exclusive luxury fashion line with premium materials and unique designs.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="http://bit.ly/44cbJ6h" alt="Summer Sale">
+                    <div class="slide-content">
+                        <h2>Summer is near Sale</h2>
+                        <p>Up to 50% off on selected items. Limited time offer for our premium customers.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.pexels.com/photos/7564226/pexels-photo-7564226.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Limited Edition">
+                    <div class="slide-content">
+                        <h2>Colaborations</h2>
+                        <p>Exclusive colaborations designed by world-renowned fashion designers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-btn" id="prevBtn">&#10094;</button>
+            <button class="carousel-btn" id="nextBtn">&#10095;</button>
+            
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+
+        <!-- Video Section -->
+        <div class="video-section">
+            <div class="video-text">
+                <h3>Explore Our Style</h3>
+                <p>Immerse yourself in the world of Culture Drop. See our latest collections in motion and feel the energy of our brand.</p>
+                <p>From the streets to the stage, our style is bold, authentic, and always pushing boundaries.</p>
+                <a href="#tshirts-section" class="cta-button">Shop Now</a>
+            </div>
+            <div class="video-container">
+                <video src="video1.mp4" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+        <!-- End Video Section -->
+        <section id="tshirts-section" class="product-section">
+            <h1 class="page-title">T-Shirts Collection</h1>
+            <div class="products-container">
+                <div class="products-grid">
+                    <div class="product-holder"> <div class="product-image"><img src="C:\Users\maxso\Desktop\rap test2\images\mtsh0001-bkaa-1.png" alt="T-Shirt Placeholder 1"></div> <h3 class="product-title">Classic Black T-Shirt</h3> <p class="product-price">$29.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=T-Shirt+2" alt="T-Shirt Placeholder 2"></div> <h3 class="product-title">White Graphic Tee</h3> <p class="product-price">$34.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=T-Shirt+3" alt="T-Shirt Placeholder 3"></div> <h3 class="product-title">Vintage Band T-Shirt</h3> <p class="product-price">$39.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=T-Shirt+4" alt="T-Shirt Placeholder 4"></div> <h3 class="product-title">Rock Legend Tee</h3> <p class="product-price">$44.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=T-Shirt+5" alt="T-Shirt Placeholder 5"></div> <h3 class="product-title">Limited Edition Tee</h3> <p class="product-price">$49.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=T-Shirt+6" alt="T-Shirt Placeholder 6"></div> <h3 class="product-title">Premium Cotton T-Shirt</h3> <p class="product-price">$54.99</p> <button class="product-button">Add to Cart</button> </div>
+                </div>
+            </div>
+             <div class="scroll-buttons"> <button class="scroll-btn" onclick="scrollSectionLeft(this)">◀</button> <button class="scroll-btn" onclick="scrollSectionRight(this)">▶</button> </div>
+        </section>
+
+        <!-- Hoodies Section -->
+        <section id="hoodies-section" class="product-section">
+            <h1 class="page-title">Hoodies Collection</h1>
+            <div class="products-container">
+                <div class="products-grid">
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+1" alt="Hoodie Placeholder 1"></div> <h3 class="product-title">Black Pullover Hoodie</h3> <p class="product-price">$79.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+2" alt="Hoodie Placeholder 2"></div> <h3 class="product-title">Zip-Up Grey Hoodie</h3> <p class="product-price">$84.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+3" alt="Hoodie Placeholder 3"></div> <h3 class="product-title">Graphic Print Hoodie</h3> <p class="product-price">$89.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+4" alt="Hoodie Placeholder 4"></div> <h3 class="product-title">Heavyweight Hoodie</h3> <p class="product-price">$99.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+5" alt="Hoodie Placeholder 5"></div> <h3 class="product-title">Oversized Hoodie</h3> <p class="product-price">$94.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Hoodie+6" alt="Hoodie Placeholder 6"></div> <h3 class="product-title">Vintage Wash Hoodie</h3> <p class="product-price">$109.99</p> <button class="product-button">Add to Cart</button> </div>
+                </div>
+            </div>
+            <div class="scroll-buttons"> <button class="scroll-btn" onclick="scrollSectionLeft(this)">◀</button> <button class="scroll-btn" onclick="scrollSectionRight(this)">▶</button> </div>
+        </section>
+
+        <!-- Jeans Section -->
+        <section id="jeans-section" class="product-section">
+            <h1 class="page-title">Jeans Collection</h1>
+            <div class="products-container">
+                <div class="products-grid">
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+1" alt="Jeans Placeholder 1"></div> <h3 class="product-title">Slim Fit Black Jeans</h3> <p class="product-price">$99.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+2" alt="Jeans Placeholder 2"></div> <h3 class="product-title">Ripped Blue Jeans</h3> <p class="product-price">$109.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+3" alt="Jeans Placeholder 3"></div> <h3 class="product-title">Straight Leg Jeans</h3> <p class="product-price">$89.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+4" alt="Jeans Placeholder 4"></div> <h3 class="product-title">Acid Wash Jeans</h3> <p class="product-price">$119.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+5" alt="Jeans Placeholder 5"></div> <h3 class="product-title">Cargo Denim Pants</h3> <p class="product-price">$129.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Jeans+6" alt="Jeans Placeholder 6"></div> <h3 class="product-title">Wide Leg Jeans</h3> <p class="product-price">$114.99</p> <button class="product-button">Add to Cart</button> </div>
+                </div>
+            </div>
+            <div class="scroll-buttons"> <button class="scroll-btn" onclick="scrollSectionLeft(this)">◀</button> <button class="scroll-btn" onclick="scrollSectionRight(this)">▶</button> </div>
+        </section>
+
+        <!-- Shoes Section -->
+        <section id="shoes-section" class="product-section">
+            <h1 class="page-title">Shoes Collection</h1>
+            <div class="products-container">
+                <div class="products-grid">
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+1" alt="Shoes Placeholder 1"></div> <h3 class="product-title">Canvas High-Tops</h3> <p class="product-price">$129.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+2" alt="Shoes Placeholder 2"></div> <h3 class="product-title">Leather Combat Boots</h3> <p class="product-price">$199.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+3" alt="Shoes Placeholder 3"></div> <h3 class="product-title">Chunky Platform Sneakers</h3> <p class="product-price">$149.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+4" alt="Shoes Placeholder 4"></div> <h3 class="product-title">Classic Low Sneakers</h3> <p class="product-price">$109.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+5" alt="Shoes Placeholder 5"></div> <h3 class="product-title">Suede Ankle Boots</h3> <p class="product-price">$179.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Shoes+6" alt="Shoes Placeholder 6"></div> <h3 class="product-title">Retro Runner Sneakers</h3> <p class="product-price">$139.99</p> <button class="product-button">Add to Cart</button> </div>
+                </div>
+            </div>
+             <div class="scroll-buttons"> <button class="scroll-btn" onclick="scrollSectionLeft(this)">◀</button> <button class="scroll-btn" onclick="scrollSectionRight(this)">▶</button> </div>
+        </section>
+
+        <!-- Accessories Section -->
+        <section id="accessories-section" class="product-section">
+            <h1 class="page-title">Accessories Collection</h1>
+            <div class="products-container">
+                <div class="products-grid">
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+1" alt="Accessory Placeholder 1"></div> <h3 class="product-title">Chain Necklace</h3> <p class="product-price">$49.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+2" alt="Accessory Placeholder 2"></div> <h3 class="product-title">Leather Belt</h3> <p class="product-price">$59.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+3" alt="Accessory Placeholder 3"></div> <h3 class="product-title">Beanie Hat</h3> <p class="product-price">$34.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+4" alt="Accessory Placeholder 4"></div> <h3 class="product-title">Ring Set</h3> <p class="product-price">$69.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+5" alt="Accessory Placeholder 5"></div> <h3 class="product-title">Canvas Backpack</h3> <p class="product-price">$89.99</p> <button class="product-button">Add to Cart</button> </div>
+                    <div class="product-holder"> <div class="product-image"><img src="https://placehold.co/220x190/000000/ffffff?text=Acc+6" alt="Accessory Placeholder 6"></div> <h3 class="product-title">Sunglasses</h3> <p class="product-price">$79.99</p> <button class="product-button">Add to Cart</button> </div>
+                </div>
+            </div>
+             <div class="scroll-buttons"> <button class="scroll-btn" onclick="scrollSectionLeft(this)">◀</button> <button class="scroll-btn" onclick="scrollSectionRight(this)">▶</button> </div>
+        </section>
+    </main>
+
+    <script >const carousel = document.querySelector('.carousel');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        let currentIndex = 0;
+        const slideCount = slides.length;
+        
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        }
+        
+        // Button click events
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Indicator click events
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+        
+        // Auto-rotate carousel
+        let interval = setInterval(nextSlide, 5000);
+        
+        // Pause on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(interval);
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            interval = setInterval(nextSlide, 5000);
+        });
+        
+        // Intersection Observer for Active Link Highlighting
+        const observerOptions = {
+            root: null, // relative to document viewport
+            rootMargin: '0px',
+            threshold: 0.4 // 40% of section visible
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    const mainNavLinks = document.querySelectorAll('nav ul li a.nav-link');
+                    mainNavLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // Add active class to the corresponding link
+                    const targetId = `#${entry.target.id}`;
+                    const activeLink = document.querySelector(`nav ul li a[href="${targetId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        const sections = document.querySelectorAll('main section[id]');
+        sections.forEach(sec => observer.observe(sec));
+
+        // Scroll Buttons for Product Sections
+        function scrollSectionLeft(button) {
+            const container = button.closest('.product-section').querySelector('.products-container');
+            if (container) {
+                container.scrollBy({ left: -300, behavior: 'smooth' });
+            }
+        }
+
+        function scrollSectionRight(button) {
+             const container = button.closest('.product-section').querySelector('.products-container');
+             if (container) {
+                 container.scrollBy({ left: 300, behavior: 'smooth' });
+             }
+        }
+        </script>
+
 </body>
 </html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Shirts - Culture Drop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #fc2525;
+            padding-bottom: 1rem;
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            overflow-x: auto;
+        }
+
+        /* Custom Scrollbar Styling */
+        .products-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .products-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .products-container::-webkit-scrollbar-thumb {
+            background: #fc2525;
+            border-radius: 4px;
+        }
+
+        .products-container::-webkit-scrollbar-thumb:hover {
+            background: #cb2111;
+        }
+
+        .products-grid {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem;
+            min-width: min-content;
+        }
+
+        .product-holder {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 400px;
+            width: 300px; /* Fixed width for each product */
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-holder:hover {
+            transform: translateY(-5px);
+            border-color: #fc2525;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: white;
+        }
+
+        .product-price {
+            color: #fc2525;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .product-button {
+            background: #cb2111;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: auto;
+        }
+
+        .product-button:hover {
+            background: #fc2525;
+        }
+
+        /* Scroll Buttons */
+        .scroll-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .scroll-btn {
+            background: #cb2111;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background: #fc2525;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">T-Shirts Collection</h1>
+    
+    <div class="products-container">
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 1</div>
+                <h3 class="product-title">Classic Black T-Shirt</h3>
+                <p class="product-price">$29.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 2</div>
+                <h3 class="product-title">White Graphic Tee</h3>
+                <p class="product-price">$34.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 3</div>
+                <h3 class="product-title">Vintage Band T-Shirt</h3>
+                <p class="product-price">$39.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 4</div>
+                <h3 class="product-title">Rock Legend Tee</h3>
+                <p class="product-price">$44.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 5</div>
+                <h3 class="product-title">Limited Edition Tee</h3>
+                <p class="product-price">$49.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-holder">
+                <div class="product-image">Product Image 6</div>
+                <h3 class="product-title">Premium Cotton T-Shirt</h3>
+                <p class="product-price">$54.99</p>
+                <button class="product-button">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="scrollLeft()">◀ Previous</button>
+        <button class="scroll-btn" onclick="scrollRight()">Next ▶</button>
+    </div>
+
+    <script>
+        function scrollLeft() {
+            const container = document.querySelector('.products-container');
+            container.scrollBy({ left: -320, behavior: 'smooth' });
+        }
+
+        function scrollRight() {
+            const container = document.querySelector('.products-container');
+            container.scrollBy({ left: 320, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
