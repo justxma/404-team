@@ -1,9 +1,9 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Culture Drop</title>
+    <title>Checkout - Culture Drop</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="logoWhite.png" type="icon/x-image">
     <style>
@@ -13,6 +13,9 @@
         --dark: #1a1a2e;
         --light: #f8f9fa;
         --accent: #ffd700;
+        --text-white: #ffffff;
+        --text-black: #000000;
+        --text-red: #fc2525;
     }
 
     * {
@@ -77,7 +80,7 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        background: linear-gradient(90deg, transparent, var(--text-red), transparent);
         animation: shimmer 2s infinite;
     }
 
@@ -88,7 +91,7 @@
 
     .logo-text {
         font-family: 'Montserrat', sans-serif;
-        color: white;
+        color: var(--text-white);
         font-size: 21px;
         font-weight: 600;
         letter-spacing: 2px;
@@ -122,12 +125,13 @@
     }
 
     .nav-title {
-        color: rgba(255, 255, 255, 0.6);
+        color: var(--text-white);
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-bottom: 15px;
         padding: 0 10px;
+        opacity: 0.6;
     }
 
     ul {
@@ -141,7 +145,7 @@
     a {
         display: block;
         text-decoration: none;
-        color: white;
+        color: var(--text-white);
         font-size: 14px;
         letter-spacing: 1px;
         font-weight: 500;
@@ -183,7 +187,13 @@
         100% { transform: translateX(0); }
     }
 
-    .cart-section {
+    .checkout-container {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 30px;
+    }
+
+    .checkout-section {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(15px);
         border-radius: 15px;
@@ -194,146 +204,292 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .cart-section:hover {
+    .checkout-section:hover {
         transform: translateY(-5px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .cart-section h2 {
-        color: white;
-        font-size: 2rem;
+    .checkout-section h2 {
+        color: var(--text-white);
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .checkout-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 3px;
+    }
+
+    .form-group {
         margin-bottom: 20px;
     }
 
-    .cart-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        margin-bottom: 15px;
-    }
-
-    .cart-item:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.08);
-    }
-
-    .cart-item img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .cart-item img:hover {
-        transform: scale(1.1) rotate(2deg);
-    }
-
-    .cart-item-details {
-        flex: 1;
-        padding: 0 15px;
-    }
-
-    .cart-item-title {
-        color: white;
-        font-size: 1.2rem;
+    .form-group label {
+        display: block;
+        color: var(--text-white);
+        margin-bottom: 8px;
+        font-size: 0.95rem;
         font-weight: 500;
-        margin-bottom: 5px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    .cart-item-price {
-        color: var(--accent);
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: var(--text-white);
+        font-size: 1rem;
+        transition: all 0.3s ease;
     }
 
-    .cart-item-qty {
-        margin: 10px 0;
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        outline: none;
+        border-color: var(--text-red);
+        box-shadow: 0 0 10px rgba(252, 37, 37, 0.2);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .payment-methods {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .payment-method {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-method:hover {
+        border-color: var(--text-red);
+        transform: translateY(-3px);
+    }
+
+    .payment-method.selected {
+        border-color: var(--text-red);
+        background: rgba(252, 37, 37, 0.1);
+    }
+
+    .payment-method img {
+        height: 30px;
+        margin-bottom: 10px;
+    }
+
+    .payment-method p {
+        color: var(--text-white);
+        font-size: 0.9rem;
+    }
+
+    .paypal-button {
+        background: #0070ba;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
+        margin-top: 15px;
+        width: 100%;
     }
 
-    .item-qty {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        width: 60px;
-        text-align: center;
+    .paypal-button:hover {
+        background: #005ea6;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 112, 186, 0.3);
+    }
+
+    .paypal-button img {
+        height: 20px;
+        margin: 0;
+    }
+
+    .payment-details {
         transition: all 0.3s ease;
+        max-height: 500px;
+        overflow: hidden;
     }
 
-    .item-qty:focus {
-        outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    .payment-details.hidden {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
     }
 
-    .cart-summary {
-        margin-top: 20px;
-        text-align: right;
+    .order-summary {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: sticky;
+        top: 30px;
     }
 
-    .total-price {
-        color: var(--accent);
+    .order-summary h2 {
+        color: var(--text-white);
         font-size: 1.8rem;
-        font-weight: bold;
-        margin: 20px 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        text-align: right;
+        margin-bottom: 25px;
+        position: relative;
+        padding-bottom: 10px;
     }
 
-    .checkout-btn {
+    .order-summary h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 3px;
+    }
+
+    .order-items {
+        margin-bottom: 20px;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 15px;
+    }
+
+    .order-item-details {
+        flex: 1;
+    }
+
+    .order-item-title {
+        color: var(--text-white);
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+    }
+
+    .order-item-variant {
+        color: var(--text-white);
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+
+    .order-item-price {
+        color: var(--text-red);
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .order-item-qty {
+        color: var(--text-white);
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-left: 15px;
+    }
+
+    .order-summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: var(--text-white);
+        font-size: 0.95rem;
+    }
+
+    .order-summary-row.total {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .order-summary-row.total .amount {
+        color: var(--text-red);
+    }
+
+    .place-order-btn {
         background: linear-gradient(45deg, var(--primary), var(--secondary));
-        color: white;
-        padding: 15px 30px;
-        font-size: 1rem;
+        color: var(--text-white);
+        width: 100%;
+        padding: 15px;
         border: none;
         border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
-        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
         box-shadow: 0 5px 15px rgba(203, 33, 17, 0.3);
     }
 
-    .checkout-btn:hover {
-        transform: translateY(-2px);
+    .place-order-btn:hover {
+        transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(203, 33, 17, 0.4);
         background: linear-gradient(45deg, var(--secondary), var(--primary));
     }
 
-    .remove-item {
-        background: transparent;
-        border: 2px solid var(--secondary);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.9rem;
+    .secure-checkout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        color: var(--text-white);
+        font-size: 0.85rem;
+        opacity: 0.7;
     }
 
-    .remove-item:hover {
-        background: var(--secondary);
-        color: white;
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(252, 37, 37, 0.3);
+    .secure-checkout i {
+        margin-right: 8px;
+        color: var(--text-red);
+    }
+
+    @media (max-width: 1200px) {
+        .checkout-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .order-summary {
+            position: relative;
+            top: 0;
+        }
     }
 
     @media (max-width: 768px) {
@@ -372,72 +528,12 @@
             margin-bottom: 15px;
         }
 
-        .cart-section {
-            padding: 1rem;
-            margin: 10px;
+        .checkout-section {
+            padding: 1.5rem;
         }
 
-        .cart-item {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 15px;
-            gap: 15px;
-        }
-
-        .cart-item img {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 15px;
-        }
-
-        .cart-item-details {
-            padding: 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cart-item-title {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .cart-item-price {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .cart-item-qty {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .remove-item {
-            margin-top: 10px;
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .cart-summary {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .total-price {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 12px 20px;
+        .form-row {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -450,47 +546,36 @@
             font-size: 16px;
         }
 
-        .cart-section h2 {
+        .checkout-section {
+            padding: 1rem;
+        }
+
+        .checkout-section h2 {
             font-size: 1.5rem;
         }
 
-        .cart-item img {
-            width: 120px;
-            height: 120px;
-        }
-
-        .cart-item-title {
-            font-size: 1rem;
-        }
-
-        .cart-item-price {
-            font-size: 1rem;
-        }
-
-        .cart-section {
-            padding: 0.8rem;
-            margin: 5px;
+        .payment-methods {
+            flex-direction: column;
         }
     }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo-container">
-            <a href="#"></a><img src="CultureDrop-removebg-preview.png" alt="Luxury Shop Logo"></a>
+            <a href="#"><img src="CultureDrop-removebg-preview.png" alt="Culture Drop Logo"></a>
             <span class="logo-text">Culture Drop</span>
         </div>
         
         <div class="nav-section">
             <div class="nav-title">Menu</div>
             <ul>
-                <li><a href="pop.html" class="nav-link" data-section="home"><span>Home</span></a></li>
-                <li><a href="tshirts.html" class="nav-link" data-section="tshirts"><span>T-Shirts</span></a></li>
-                <li><a href="hoodies.html" class="nav-link" data-section="hoodies"><span>Hoodies</span></a></li>
-                <li><a href="jeans.html" class="nav-link" data-section="jeans"><span>Jeans</span></a></li>
-                <li><a href="shoes.html" class="nav-link" data-section="shoes"><span>Shoes</span></a></li>
-                <li><a href="accessories.html" class="nav-link" data-section="accessories"><span>Accessories</span></a></li>
+                <li><a href="pop.html"><span>Home</span></a></li>
+                <li><a href="tshirts.html"><span>T-Shirts</span></a></li>
+                <li><a href="hoodies.html"><span>Hoodies</span></a></li>
+                <li><a href="jeans.html"><span>Jeans</span></a></li>
+                <li><a href="shoes.html"><span>Shoes</span></a></li>
+                <li><a href="accessories.html"><span>Accessories</span></a></li>
             </ul>
         </div>
         
@@ -499,74 +584,242 @@
             <ul>
                 <li><a href="cont.html"><span>My Account</span></a></li>
                 <li><a href="cart.html"><span>Cart</span></a></li>
-                <li><a href=""><span>Wishlist</span></a></li>
+                <li><a href="wishlist.html"><span>Wishlist</span></a></li>
             </ul>
         </div>
     </nav>
 
     <main>
-        <section class="cart-section">
-            <h2>Your Shopping Cart</h2>
+        <div class="checkout-container">
+            <div class="checkout-forms">
+                <div class="checkout-section">
+                    <h2>Shipping Information</h2>
+                    <form id="shipping-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" id="state" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="zip">ZIP Code</label>
+                                <input type="text" id="zip" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="checkout-section">
+                    <h2>Payment Details</h2>
+                    <form id="payment-form">
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <div class="payment-methods">
+                                <div class="payment-method selected" data-method="credit-card">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/179/179431.png" alt="Credit Card">
+                                    <p>Credit Card</p>
+                                </div>
+                                <div class="payment-method" data-method="paypal">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal">
+                                    <p>PayPal</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-details" id="credit-card-details">
+                            <div class="form-group">
+                                <label for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiry">Expiry Date</label>
+                                    <input type="text" id="expiry" placeholder="MM/YY" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="billing-address">Billing Address</label>
+                                <textarea id="billing-address" rows="3" placeholder="Enter your billing address if different from shipping address"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-details hidden" id="paypal-details">
+                            <p style="color: var(--text-white); margin-bottom: 15px; text-align: center;">You will be redirected to PayPal to complete your payment.</p>
+                            <button type="button" class="paypal-button">
+                                <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal">
+                                Pay with PayPal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             
-            <div class="cart-item">
-                <img src="product1.jpg" alt="Product 1">
-                <div class="cart-item-details">
-                    <div class="cart-item-title">Luxury T-Shirt</div>
-                    <div class="cart-item-price">$49.99</div>
-                    <div class="cart-item-qty">
-                        <label for="qty">Qty:</label>
-                        <input type="number" value="1" min="1" class="item-qty" style="width: 60px; margin-left: 10px;">
-                    </div>                    
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                
+                <div class="order-items">
+                    <div class="order-item">
+                        <img src="product1.jpg" alt="Luxury T-Shirt">
+                        <div class="order-item-details">
+                            <div class="order-item-title">Luxury T-Shirt</div>
+                            <div class="order-item-variant">Blue, Size S</div>
+                        </div>
+                        <div class="order-item-price">$49.99</div>
+                        <div class="order-item-qty">x1</div>
+                    </div>
+                    
+                    <div class="order-item">
+                        <img src="product2.jpg" alt="Stylish Hoodie">
+                        <div class="order-item-details">
+                            <div class="order-item-title">Stylish Hoodie</div>
+                            <div class="order-item-variant">Black, Size M</div>
+                        </div>
+                        <div class="order-item-price">$79.99</div>
+                        <div class="order-item-qty">x1</div>
+                    </div>
                 </div>
-                <button class="remove-item">Remove</button>
-            </div>
-
-            <div class="cart-item">
-                <img src="product2.jpg" alt="Product 2">
-                <div class="cart-item-details">
-                    <div class="cart-item-title">Stylish Hoodie</div>
-                    <div class="cart-item-price">$79.99</div>
-                    <div class="cart-item-qty">
-                        <label for="qty">Qty:</label>
-                        <input type="number" value="1" min="1" class="item-qty" style="width: 60px; margin-left: 10px;">
-                    </div>                    
+                
+                <div class="order-summary-row">
+                    <span>Subtotal</span>
+                    <span>$129.98</span>
                 </div>
-                <button class="remove-item">Remove</button>
+                
+                <div class="order-summary-row">
+                    <span>Shipping</span>
+                    <span>$10.00</span>
+                </div>
+                
+                <div class="order-summary-row">
+                    <span>Tax</span>
+                    <span>$13.00</span>
+                </div>
+                
+                <div class="order-summary-row total">
+                    <span>Total</span>
+                    <span class="amount">$152.98</span>
+                </div>
+                
+                <button class="place-order-btn">Place Order</button>
+                
+                <div class="secure-checkout">
+                    <i>🔒</i> Secure Checkout
+                </div>
             </div>
-
-            <div class="cart-summary">
-                <div class="total-price">Total:</div>   
-                <button class="checkout-btn">Proceed to Checkout</button>
-            </div>
-        </section>
+        </div>
     </main>
 
     <script>
-        function updateTotal() {
-            const cartItems = document.querySelectorAll('.cart-item');
-            let total = 0;
-
-            cartItems.forEach(item => {
-                const price = parseFloat(item.querySelector('.cart-item-price').textContent.replace('$', ''));
-                const quantity = item.querySelector('.item-qty').value;
-                total += price * quantity;
-            });
-
-            document.querySelector('.total-price').textContent = `Total: $${total.toFixed(2)}`;
-        }
-
-        document.querySelectorAll('.item-qty').forEach(input => {
-            input.addEventListener('input', updateTotal);
-        });
-
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.target.closest('.cart-item').remove();
-                updateTotal();
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                const methodType = this.getAttribute('data-method');
+                
+                // Update selected state
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Show/hide payment details
+                document.querySelectorAll('.payment-details').forEach(details => {
+                    details.classList.add('hidden');
+                });
+                
+                document.getElementById(`${methodType}-details`).classList.remove('hidden');
             });
         });
 
-        updateTotal();  // Initial call to calculate the total when the page is loaded
+        // PayPal button click handler
+        document.querySelector('.paypal-button').addEventListener('click', function() {
+            // Redirect to PayPal login page
+            window.location.href = 'https://www.paypal.com/signin';
+        });
+
+        // Form validation and submission
+        document.querySelector('.place-order-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check if PayPal is selected
+            const isPayPal = document.querySelector('.payment-method[data-method="paypal"]').classList.contains('selected');
+            if (isPayPal) {
+                // Trigger PayPal button click
+                document.querySelector('.paypal-button').click();
+                return;
+            }
+            
+            // Simple validation for credit card
+            const requiredFields = document.querySelectorAll('#credit-card-details input[required], #credit-card-details select[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--text-red)';
+                } else {
+                    field.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+            
+            if (isValid) {
+                // Show success message
+                alert('Order placed successfully! Thank you for your purchase.');
+                // Redirect to confirmation page (would be implemented in a real site)
+                // window.location.href = 'confirmation.html';
+            }
+        });
     </script>
 </body>
 </html>
